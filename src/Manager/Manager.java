@@ -5,6 +5,7 @@ import Regex.Regex;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Manager {
     Scanner scanner = new Scanner(System.in);
@@ -15,12 +16,13 @@ public class Manager {
     }
 
     public Contact createNewFriend() {
+        Pattern phonePattern = Pattern.compile("^[0][0-9]{9}&");
         String phone = null;
         boolean checkPhone = false;
         while (!checkPhone) {
             System.out.print("Enter Phone: ");
             phone = scanner.next();
-            if (regex.checkPhone(phone)) {
+            if (phonePattern.matcher(phone).find()) {
                 checkPhone = true;
             }
         }
@@ -52,12 +54,13 @@ public class Manager {
         System.out.print("Enter Birthday:");
         String birthday = scanner.next();
 
+        Pattern emailPattern = Pattern.compile("^[a-zA-Z1-9]{1,20}@[a-z]{1,5}.[a-z]{2,3}$");
         String email = null;
         boolean checkEmail = false;
         while (!checkEmail) {
             System.out.print("Enter Email: ");
             email = scanner.next();
-            if (regex.checkEmail(email)) {
+            if (emailPattern.matcher(email).find()) {
                 checkEmail = true;
             }
         }
