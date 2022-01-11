@@ -1,6 +1,5 @@
 package Manager;
 import Contact.Contact;
-import Regex.Regex;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import java.util.regex.Pattern;
 public class Manager {
     Scanner scanner = new Scanner(System.in);
     ArrayList<Contact> contacts = new ArrayList<>();
-    Regex regex = new Regex();
     public void displayAllContact() {
         contacts.forEach(System.out::println);
     }
@@ -24,6 +22,8 @@ public class Manager {
             phone = scanner.next();
             if (phonePattern.matcher(phone).find()) {
                 checkPhone = true;
+            } else {
+                System.out.println("    ☢ The phone number should be included 10 numbers with 0 first!");
             }
         }
 
@@ -62,6 +62,9 @@ public class Manager {
             email = scanner.next();
             if (emailPattern.matcher(email).find()) {
                 checkEmail = true;
+            } else {
+                System.out.println("    ☢ Email is wrong!");
+                System.out.println("    ☢ Example: abc@abc.acb, abc123@abc.abc");
             }
         }
 
@@ -112,12 +115,13 @@ public class Manager {
             String birthday = scanner.next();
             contact.setBirthday(birthday);
 
+            Pattern emailPattern = Pattern.compile("^[a-zA-Z1-9]{1,20}@[a-z]{1,5}.[a-z]{2,3}$");
             String email = null;
             boolean checkEmail = false;
             while (!checkEmail) {
-                System.out.print("Re-Enter Email: ");
+                System.out.print("Enter Email: ");
                 email = scanner.next();
-                if (regex.checkEmail(email)) {
+                if (emailPattern.matcher(email).find()) {
                     checkEmail = true;
                 }
             }
